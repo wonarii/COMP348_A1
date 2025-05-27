@@ -17,5 +17,10 @@ char *description;
 float amount;
 }entry;
 
+typedef struct{
+    entry *arrayPointer;
+    int size;
+}entryArray;
+
 #endif
 

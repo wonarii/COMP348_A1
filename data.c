@@ -8,17 +8,18 @@ const char *PIPE = "|";
 const char *NEWLINE = "\n";
 
 //declaring the functions
-struct entry[] readFile(char filename[]);
-struct entry createStruct(char data[]);
-char* collectData(void);
+entryArray readFile(char filename[]);
+entry* createStruct(FILE* fp);
+char* collectData(FILE* fp);
+
+char endChar = '0';
 
 
-//will return an array of struct
-struct* readFile(char filename[]){
+//will return a struct containing an array--------------------
+entryArray readFile(char filename[]){
 
 //creates the file pointer
-FILE *fp;
-fp = fopen(filename,"r");
+FILE *fp = fopen(filename,"r");
 
 //if file cannot be read
 if(fp == NULL) {
@@ -26,10 +27,28 @@ printf("Could not open %s \n", filename);
 //exit();
 }
 
-//creating an array of struct
-struct entry entries[];
+int size = 100;
+//creating an array of struct pointers
+entry entries[size];
 
-entries[0]=createStruct();
+//creating a pointer to the array of struct pointers
+entry*entryArrayPointer = &entries[size];
+
+int index=0;
+
+while(endChar != EOF){
+
+    //if array is full, double the size
+    if(index >= size){
+        entry newEntries[size*2];
+        for(int i=0; i<size; i++){
+            newEntries[i]= entries[i];
+        }
+        size = size*2;
+        entryArrayPointer = &newEntries[size];
+    }
+
+*(entryArrayPointer+index)=*createStruct(fp);
 
 //printing the strcuture
 printf("id: %d\n", entries[0].id);
@@ -39,35 +58,60 @@ printf("subtype: %s\n", entries[0].subtype);
 printf("description: %s\n", entries[0].description);
 printf("amount: %f\n", entries[0].amount);
 
+//increments index for the next spot in the array
+index ++;
+}
 
+entryArray arrayOfEntries={
+    .arrayPointer = entryArrayPointer,
+    .size = size
+} ;
 
+return arrayOfEntries;
 }//end of readFile
 
 
 //creating a struct with the data collected
-struct *entry createStruct(char data[]){
+entry* createStruct(FILE* fp){
 
-//struct entry *newEntry= malloc(sizeof(struct entry));
-struct entry newEntry;
+    //temporary sstrings to hold the data
+ char* idStr = collectData(fp);
+    char* dateStr = collectData(fp);
+    char* typeStr = collectData(fp);
+    char* subtypeStr = collectData(fp);
+    char* descStr = collectData(fp);
+    char* amountStr = collectData(fp);
+
+
+entry *newEntry= malloc(sizeof(entry));
+
+    newEntry->id = atoi(idStr);
+    newEntry->date = dateStr;
+    newEntry->type = typeStr;
+    newEntry->subtype = subtypeStr;
+    newEntry->description = descStr;
+    newEntry->amount = atof(amountStr);
 
 //id
-newEntry.id = atoi(collectData());
+//newEntry->id = atoi(collectData());
 //date
-strcpy(newEntry.date, collectData());
+//strcpy(newEntry->date, collectData());
 //type
-newEntry.type = collectData();
+//newEntry.type = collectData();
 //subtype
-newEntry.subtype = collectData();
+//newEntry.subtype = collectData();
 //description
-newEntry.description = collectData();
+//newEntry.description = collectData();
 //amount
-newEntry.amount = atof(collectData());
+//newEntry.amount = atof(collectData());
+
+
 
 return newEntry;
 }//end of create struct
 
 
-char* collectData(void){
+char* collectData(FILE* fp){
 //collecting data
 
 char data[100]="";
@@ -75,8 +119,7 @@ char nextChar =fgetc(fp);
 int counter = 0;
 int lengthOfString;
 
-while(nextChar != *PIPE && counter <100 && nextChar != *NEWLINE){
-printf("in da loop");
+while(nextChar != *PIPE && counter <100 && nextChar != *NEWLINE && nextChar!= EOF){
 
 strncat(data, &nextChar, 1);
 
@@ -85,19 +128,20 @@ counter ++;
 }//end of while
 //when while exits, we should have the a complete piece of data
 
+//when the end of the file is reached
+if(nextChar == EOF){
+    endChar = EOF;
+}
+
+else{
 //for testing
 printf("%s", data);
-//to skip the | or \n
-fp=fp+1;
 
-int size = data.strlen();
-
-//pointer to an array of "size" characters
-char* dataPointer = (char*)malloc(size * sizeof(char));
-
-//filling the array
-for(int i = 0; i < size; i++){
-dataPointer[i] = data[i];
+}
+//pointer to data
+char* dataPointer = malloc(counter+1);
+if(dataPointer != NULL){
+    strcpy(dataPointer, data);
 }
 
 return dataPointer;
