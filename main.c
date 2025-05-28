@@ -13,7 +13,7 @@ int verifyChoice(int choice);
 
 //main function
 int main(int argCount, char **argPointers){
-printf("%d",argCount);
+//printf("%d",argCount);
 //I/O stuff--------------
 
 //will read the file

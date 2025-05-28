@@ -8,15 +8,17 @@ const char *PIPE = "|";
 const char *NEWLINE = "\n";
 
 //declaring the functions
-entryArray readFile(char filename[]);
+//entryArray
+void readFile(char filename[]);
 entry* createStruct(FILE* fp);
 char* collectData(FILE* fp);
 
 char endChar = '0';
-
+node *head = NULL;
 
 //will return a struct containing an array--------------------
-entryArray readFile(char filename[]){
+//entryArray 
+void readFile(char filename[]){
 
 //creates the file pointer
 FILE *fp = fopen(filename,"r");
@@ -27,6 +29,31 @@ printf("Could not open %s \n", filename);
 //exit();
 }
 
+
+
+//linked list
+/*
+
+while(endChar != EOF){
+
+if(head == NULL){
+    node newNode = {
+        .info = createStruct(fp),
+        .next = NULL;
+    };
+    head = &newNode;
+
+}
+else{
+    node newNode = {
+        .info = createStruct(fp),
+        .next = head;
+    };
+}
+}
+*/
+//FAILED ARRAY STUFF_------------------------------------------------
+/*
 int size = 100;
 //creating an array of struct pointers
 entry entries[size];
@@ -48,7 +75,7 @@ while(endChar != EOF){
         entryArrayPointer = &newEntries[size];
     }
 
-*(entryArrayPointer+index)=*createStruct(fp);
+/*(entryArrayPointer+index)=*createStruct(fp);
 
 //printing the strcuture
 printf("id: %d\n", entries[0].id);
@@ -67,7 +94,9 @@ entryArray arrayOfEntries={
     .size = size
 } ;
 
-return arrayOfEntries;
+return arrayOfEntries;*/
+
+
 }//end of readFile
 
 
@@ -91,6 +120,13 @@ entry *newEntry= malloc(sizeof(entry));
     newEntry->subtype = subtypeStr;
     newEntry->description = descStr;
     newEntry->amount = atof(amountStr);
+
+printf("id: %d\n", newEntry->id);
+printf("date: %s\n", newEntry->date);
+printf("type: %s\n", newEntry->type);
+printf("subtype: %s\n", newEntry->subtype);
+printf("description: %s\n", newEntry->description);
+printf("amount: %f\n", newEntry->amount);
 
 //id
 //newEntry->id = atoi(collectData());
@@ -135,14 +171,11 @@ if(nextChar == EOF){
 
 else{
 //for testing
-printf("%s", data);
+printf("TESTING: %s END", data);
 
 }
-//pointer to data
-char* dataPointer = malloc(counter+1);
-if(dataPointer != NULL){
-    strcpy(dataPointer, data);
-}
+
+char* dataPointer = strdup(data); 
 
 return dataPointer;
 }//end of collectData
