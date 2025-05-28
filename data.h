@@ -23,11 +23,11 @@ typedef struct node{
     entry info;
     struct node* next;
 }node;
-/*
+
 typedef struct{
     entry *arrayPointer;
     int size;
 }entryArray;
-*/
+
 #endif
 

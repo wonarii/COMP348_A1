@@ -8,8 +8,7 @@ const char *PIPE = "|";
 const char *NEWLINE = "\n";
 
 //declaring the functions
-//entryArray
-void readFile(char filename[]);
+entryArray readFile(char filename[]);
 entry* createStruct(FILE* fp);
 char* collectData(FILE* fp);
 
@@ -17,8 +16,7 @@ char endChar = '0';
 node *head = NULL;
 
 //will return a struct containing an array--------------------
-//entryArray 
-void readFile(char filename[]){
+entryArray readFile(char filename[]){
 
 //creates the file pointer
 FILE *fp = fopen(filename,"r");
@@ -28,6 +26,7 @@ if(fp == NULL) {
 printf("Could not open %s \n", filename);
 //exit();
 }
+
 
 
 
@@ -53,18 +52,18 @@ else{
 }
 */
 //FAILED ARRAY STUFF_------------------------------------------------
-/*
-int size = 100;
+
+int size = 25;
 //creating an array of struct pointers
-entry entries[size];
+entry* entries[size];
 
 //creating a pointer to the array of struct pointers
-entry*entryArrayPointer = &entries[size];
+entry*entryArrayPointer = entries[size];
 
 int index=0;
 
 while(endChar != EOF){
-
+/*
     //if array is full, double the size
     if(index >= size){
         entry newEntries[size*2];
@@ -74,16 +73,16 @@ while(endChar != EOF){
         size = size*2;
         entryArrayPointer = &newEntries[size];
     }
-
-/*(entryArrayPointer+index)=*createStruct(fp);
+*/
+entries[index]=createStruct(fp);
 
 //printing the strcuture
-printf("id: %d\n", entries[0].id);
-printf("date: %s\n", entries[0].date);
-printf("type: %s\n", entries[0].type);
-printf("subtype: %s\n", entries[0].subtype);
-printf("description: %s\n", entries[0].description);
-printf("amount: %f\n", entries[0].amount);
+printf("id: %d\n", entries[index]->id);
+printf("date: %s\n", entries[index]->date);
+printf("type: %s\n", entries[index]->type);
+printf("subtype: %s\n", entries[index]->subtype);
+printf("description: %s\n", entries[index]->description);
+printf("amount: %f\n", entries[index]->amount);
 
 //increments index for the next spot in the array
 index ++;
@@ -94,7 +93,7 @@ entryArray arrayOfEntries={
     .size = size
 } ;
 
-return arrayOfEntries;*/
+return arrayOfEntries;
 
 
 }//end of readFile
@@ -103,7 +102,7 @@ return arrayOfEntries;*/
 //creating a struct with the data collected
 entry* createStruct(FILE* fp){
 
-    //temporary sstrings to hold the data
+    //temporary strings to hold the data
  char* idStr = collectData(fp);
     char* dateStr = collectData(fp);
     char* typeStr = collectData(fp);
