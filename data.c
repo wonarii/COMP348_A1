@@ -8,93 +8,58 @@ const char *PIPE = "|";
 const char *NEWLINE = "\n";
 
 //declaring the functions
-entryArray readFile(char filename[]);
+entryArray* readFile(char filename[]);
 entry* createStruct(FILE* fp);
 char* collectData(FILE* fp);
 
 char endChar = '0';
-node *head = NULL;
-
-//will return a struct containing an array--------------------
-entryArray readFile(char filename[]){
-
-//creates the file pointer
-FILE *fp = fopen(filename,"r");
-
-//if file cannot be read
-if(fp == NULL) {
-printf("Could not open %s \n", filename);
-//exit();
-}
+//node *head = NULL;
 
 
-
-
-//linked list
-/*
-
-while(endChar != EOF){
-
-if(head == NULL){
-    node newNode = {
-        .info = createStruct(fp),
-        .next = NULL;
-    };
-    head = &newNode;
-
-}
-else{
-    node newNode = {
-        .info = createStruct(fp),
-        .next = head;
-    };
-}
-}
-*/
-//FAILED ARRAY STUFF_------------------------------------------------
-
-int size = 25;
-//creating an array of struct pointers
-entry* entries[size];
-
-//creating a pointer to the array of struct pointers
-entry*entryArrayPointer = entries[size];
-
-int index=0;
-
-while(endChar != EOF){
-/*
-    //if array is full, double the size
-    if(index >= size){
-        entry newEntries[size*2];
-        for(int i=0; i<size; i++){
-            newEntries[i]= entries[i];
-        }
-        size = size*2;
-        entryArrayPointer = &newEntries[size];
+entryArray* readFile(char filename[]) {
+    FILE *fp = fopen(filename, "r");
+    if (fp == NULL) {
+        printf("Could not open %s \n", filename);
+        return NULL;
     }
-*/
-entries[index]=createStruct(fp);
 
-//printing the strcuture
-printf("id: %d\n", entries[index]->id);
-printf("date: %s\n", entries[index]->date);
-printf("type: %s\n", entries[index]->type);
-printf("subtype: %s\n", entries[index]->subtype);
-printf("description: %s\n", entries[index]->description);
-printf("amount: %f\n", entries[index]->amount);
+    int size = 50;
+    int index = 0;
 
-//increments index for the next spot in the array
-index ++;
-}
+    //memory allocated for an array of pointers to entry structs
+    entry **entries = malloc(size * sizeof(entry*));
+    //if the memory allocation fails, entries will be NUL, NULL=0
+    if (!entries) return NULL;
 
-entryArray arrayOfEntries={
-    .arrayPointer = entryArrayPointer,
-    .size = size
-} ;
+    while (endChar != EOF) {
+        //in case no space left in array
+        /*/
+        if (index >= size) {
+            size *= 2;
+            //reallocating to a doubly sized array
+            entry *temp = realloc(entries, size * sizeof(entry*));
+            //if it doesn'nt work
+            if (temp ==NULL){ 
+                    //ERROR CODE HERE?
+                break;}
+            entries = temp;
+        }
+            */
+        //will create entry structs to fill the array by reading the file
 
-return arrayOfEntries;
+         entries[index] = createStruct(fp);
+       
+        index++;
+    }
 
+    //i need to storeeverything in an entryArray struct to remember the size nd contents
+    entryArray *pointerToArrayOfEntries = malloc(sizeof(entryArray));
+    pointerToArrayOfEntries->arrayPointer = entries;
+    pointerToArrayOfEntries->size = index; 
+
+    //closes the file pointer:)
+    fclose(fp);
+    return pointerToArrayOfEntries;
 
 }//end of readFile
 
@@ -119,13 +84,6 @@ entry *newEntry= malloc(sizeof(entry));
     newEntry->subtype = subtypeStr;
     newEntry->description = descStr;
     newEntry->amount = atof(amountStr);
-
-printf("id: %d\n", newEntry->id);
-printf("date: %s\n", newEntry->date);
-printf("type: %s\n", newEntry->type);
-printf("subtype: %s\n", newEntry->subtype);
-printf("description: %s\n", newEntry->description);
-printf("amount: %f\n", newEntry->amount);
 
 //id
 //newEntry->id = atoi(collectData());
@@ -168,11 +126,7 @@ if(nextChar == EOF){
     endChar = EOF;
 }
 
-else{
-//for testing
-printf("TESTING: %s END", data);
 
-}
 
 char* dataPointer = strdup(data); 
 

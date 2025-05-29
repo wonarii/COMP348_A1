@@ -18,10 +18,11 @@ int main(int argCount, char **argPointers){
 
 //will read the file
 //argPointers' first element is the program's name, the second should be the file we give it
-readFile(argPointers[1]);
+entryArray* arrayOfEntries = readFile(argPointers[1]);
+
 
 //menu stuff--------------
-//clearScreen();
+clearScreen();
 displayWelcome();
 displayMainMenu();
 
@@ -33,7 +34,8 @@ int choice = acceptChoice();
 switch(choice)
 {
 case 1:
-//	displayAll();
+	clearScreen();
+	displayAll(arrayOfEntries);
 	break;
 case 2:
 //	expenseDistribution();

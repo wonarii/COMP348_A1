@@ -8,8 +8,7 @@
 #include <string.h>
 
 
-//publibly accessible functions:
-void readFile(char *filename);
+
 
 //defining struct entry
 typedef struct{
@@ -21,5 +20,13 @@ char *description;
 float amount;
 }entry;
 
+typedef struct{
+    entry **arrayPointer;
+    int size;
+}entryArray;
+
+//publibly accessible functions:
+entryArray* readFile(char *filename);
+void displayAll(entryArray* arrayOfEntries);
 
 #endif

@@ -25,7 +25,7 @@ typedef struct node{
 }node;
 
 typedef struct{
-    entry *arrayPointer;
+    entry **arrayPointer;
     int size;
 }entryArray;
 
