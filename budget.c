@@ -218,3 +218,56 @@ void addEntry(entryArray* arrayOfEntries, int entryCounter){
 
     printf("Entry added successfully with ID: %d", entryCounter+101);
 }
+
+//----------CHOICE 5: MODIFY ENTRIES--------------//
+
+void modifyEntry(entryArray* arrayOfEntries){
+
+    int size = arrayOfEntries->size;
+    entry** entries = arrayOfEntries->arrayPointer;
+
+    printf("\n======Modify Entry======\n");
+
+    printf("\nEnter ID of entry to modify: ");
+    int idToModify;
+     scanf("%d", &idToModify);
+
+    //find which index this entry is at
+    int index = 0;
+    while(idToModify != entries[index]->id ){
+        index ++;
+    }
+
+
+     //print out the current data
+     printf("\nCurrent Details: ");
+     printf("\nID: %d", entries[index]->id );
+     printf("\nDate: %s", entries[index]->date );
+     printf("\nType: %s", entries[index]->type );
+     printf("\nSubtype: %s", entries[index]->subtype );
+     printf("\nDescription: %s", entries[index]->description );
+     printf("\nAmount: %.2f", entries[index]->amount );
+
+     printf("\n What would you like to modify?");
+     printf("\n1. Date");
+     printf("\n2. Amount");
+     printf("\nChoice: ");
+
+     int choice;
+    scanf("%d", &choice );
+    //modify DATE
+    if(choice == 1){
+        printf("\nEnter new date (YYYY-MM-DD): ");
+        char dateStr[100];
+        scanf("%10s", dateStr);
+        entries[index]->date = strdup(dateStr);
+        printf("Entry updated successfully");
+    }
+    if(choice == 2){
+        printf("\nEnter new amount: $");
+        char amountStr[100];
+        scanf("%s", amountStr);
+        entries[index]->amount = atof(amountStr);
+        printf("Entry updated successfully");
+    }
+}//end of modify entry

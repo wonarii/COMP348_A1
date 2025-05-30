@@ -31,4 +31,5 @@ void displayAll(entryArray* arrayOfEntries);
 void expenseDistribution(entryArray* arrayOfEntries);
 void sortEntries(entryArray* arrayOfEntries);
 void addEntry(entryArray* arrayOfEntries, int entryCounter);
+void modifyEntry(entryArray* arrayOfEntries);
 #endif

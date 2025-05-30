@@ -63,8 +63,7 @@ case 4:
 case 5:
 clearScreen();
 	displayAll(arrayOfEntries);
-	//
-	// modifyEntry(arrayOfEntries);
+	modifyEntry(arrayOfEntries);
 	goBack();
 	break;
 case 6: 
