@@ -38,7 +38,8 @@ case 1:
 	displayAll(arrayOfEntries);
 	break;
 case 2:
-//	expenseDistribution();
+	clearScreen();
+	expenseDistribution(arrayOfEntries);
 	break;
 case 3:
 //	sortEntries();

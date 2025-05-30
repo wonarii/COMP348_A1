@@ -28,5 +28,6 @@ typedef struct{
 //publibly accessible functions:
 entryArray* readFile(char *filename);
 void displayAll(entryArray* arrayOfEntries);
+void expenseDistribution(entryArray* arrayOfEntries);
 
 #endif

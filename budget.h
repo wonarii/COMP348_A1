@@ -21,5 +21,9 @@ typedef struct{
     int size;
 }entryArray;
 
+void displayAll(entryArray* arrayOfEntries);
+void expenseDistribution(entryArray* arrayOfEntries);
+
+
 #endif
 
