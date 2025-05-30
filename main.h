@@ -30,4 +30,5 @@ entryArray* readFile(char *filename);
 void displayAll(entryArray* arrayOfEntries);
 void expenseDistribution(entryArray* arrayOfEntries);
 void sortEntries(entryArray* arrayOfEntries);
+void addEntry(entryArray* arrayOfEntries, int entryCounter);
 #endif

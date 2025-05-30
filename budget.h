@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
+
 
 //defining the struct entry
 typedef struct{
@@ -29,6 +31,6 @@ int compareID(const void* a, const void* b);
 int compareDates(const void* a, const void* b);
 int compareAmounts(const void* a, const void* b);
 int compareDescription(const void* a, const void* b);
-
+void addEntry(entryArray* arrayOfEntries, int entryCounter);
 #endif
 

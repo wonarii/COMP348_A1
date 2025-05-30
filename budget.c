@@ -138,3 +138,83 @@ default:
     break;
 }
 }//end sort entries
+
+//----------CHOICE 4: ADD ENTRIES--------------//
+
+void addEntry(entryArray* arrayOfEntries, int entryCounter){
+
+    int size = arrayOfEntries->size;
+    entry** entries = arrayOfEntries->arrayPointer;
+
+    printf("====Add Income/Expense Entry====\n");
+
+    //date
+    
+    printf("Use today's date? (y/n): ");
+    char yesNo;
+   scanf(" %1c", &yesNo );
+    char yes = 'y';
+
+    char dateStr[100];
+   if (yesNo == yes){
+    struct tm* date;
+    time_t t = time(NULL);
+
+    // Get the localtime
+    date = localtime(&t);
+
+      
+       //formats data into a string
+       //snprintf(destination(char array -> char*), size(bytes), format(string with the %s or %d), values(whatever))
+       snprintf(dateStr, sizeof(dateStr), "%04d-%02d-%02d",
+         date->tm_year + 1900, date->tm_mon + 1, date->tm_mday);
+   }
+   else{
+        printf("\nEnter date (YYYY-MM-DD): ");
+        scanf("%10s", dateStr);
+   }
+
+   //type
+   printf("\nType (income/expense): ");
+  char typeStr[100];
+   scanf("%s", typeStr);
+
+   //subtype
+   printf("\nCategory: ");
+  char subtypeStr[100];
+   scanf("%s", subtypeStr);
+
+     //description
+   printf("\nDescription: ");
+  char descriptionStr[100];
+   scanf("%s", descriptionStr);
+
+     //Amount
+   printf("\nAmount: $");
+  char amountStr[100];
+   scanf("%s", amountStr);
+
+   //id
+   int id = entryCounter +101;
+  
+
+   //creaating the new entry
+   entry *newEntry= malloc(sizeof(entry));
+
+    newEntry->id = id;
+    newEntry->date = strdup(dateStr);
+    newEntry->type = strdup(typeStr);
+    newEntry->subtype = strdup(subtypeStr);
+    newEntry->description = strdup(descriptionStr);
+    newEntry->amount = atof(amountStr);
+//strdup() duplicates the string so it isn't erased afterwards(local varaible probelms)
+
+
+    //adding the entry to the array
+    entries[size]=newEntry;
+    arrayOfEntries->size++;
+
+
+
+    printf("Entry added successfully with ID: %d", entryCounter+101);
+}

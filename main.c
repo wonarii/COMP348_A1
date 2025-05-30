@@ -13,6 +13,7 @@ int acceptChoice(void);
 int verifyChoice(int choice);
 void goBack(void);
 
+int entryCounter = 0;
 
 //main function
 int main(int argCount, char **argPointers){
@@ -22,7 +23,8 @@ int main(int argCount, char **argPointers){
 //will read the file
 //argPointers' first element is the program's name, the second should be the file we give it
 entryArray* arrayOfEntries = readFile(argPointers[1]);
-
+//will set the entry counter to the amount of entries read
+entryCounter = arrayOfEntries->size;
 
 int choice = 0;
 
@@ -53,10 +55,17 @@ case 3:
 	sortEntries(arrayOfEntries);
 	break;
 case 4:
-//	addEntry();
+	clearScreen();
+	addEntry(arrayOfEntries, entryCounter);
+	 entryCounter++;
+	goBack();
 	break;
 case 5:
-//	modifyEntry();
+clearScreen();
+	displayAll(arrayOfEntries);
+	//
+	// modifyEntry(arrayOfEntries);
+	goBack();
 	break;
 case 6: 
 //	filterByMonth();
