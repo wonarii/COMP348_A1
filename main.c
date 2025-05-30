@@ -67,10 +67,15 @@ clearScreen();
 	goBack();
 	break;
 case 6: 
-//	filterByMonth();
+clearScreen();
+	filterByMonth(arrayOfEntries);
+	goBack();
 	break;
 case 7:
-//	exit();
+clearScreen();
+	printf("Goodbye annd thanks for using our budget tracker app!\n");
+	writeToFile(argPointers[1],arrayOfEntries);
+	cleanUp(arrayOfEntries);
 	break;
 }
 

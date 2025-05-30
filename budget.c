@@ -271,3 +271,50 @@ void modifyEntry(entryArray* arrayOfEntries){
         printf("Entry updated successfully");
     }
 }//end of modify entry
+
+//----------CHOICE 6: FILTER BY MONTH--------------//
+
+void filterByMonth(entryArray* arrayOfEntries){
+
+    int size = arrayOfEntries->size;
+    entry** entries = arrayOfEntries->arrayPointer;
+
+    printf("\n======Filter By Month======\n");
+
+    
+    printf("\nEnter year (YYYY): ");
+ char yearStr[100];
+    scanf("%4s", yearStr);
+    printf("\nEnter month (MM): ");
+     char monthStr[100];
+    scanf("%2s", monthStr);
+
+    char dateStr[100];
+   snprintf(dateStr, sizeof(dateStr), "%.4s-%.2s",
+         yearStr, monthStr);
+   
+printf("\nEntries for %s:", dateStr);
+
+printf("\nID\t Date\t\tType\t\tCategory\tDescription\tAmount\n");
+printf("--------------------------------------------------------------------------------------\n");
+
+int printCount=0;
+
+    for(int i = 0; i < size; i++){
+
+if (strncmp(entries[i]->date, dateStr, 7) == 0) {
+    // The first 7 characters match
+    //printing the strcuture
+printf("%d\t", entries[i]->id);
+printf("%s\t", entries[i]->date);
+printf("%s\t\t", entries[i]->type);
+printf("%s\t\t", entries[i]->subtype);
+printf("%s  \t", entries[i]->description);
+printf("%.2f\t\n", entries[i]->amount);
+printCount ++;
+    }
+    }
+    if(printCount == 0){
+        printf("\nThere are no entries for that month");
+    }
+}

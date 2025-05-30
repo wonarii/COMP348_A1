@@ -7,3 +7,4 @@
 107|2025-05-05|expense|Wants|Shopping|250.00
 108|2025-05-06|expense|Wants|Dining|75.00
 109|2025-05-07|expense|Needs|Phone Bill|60.00
+110|2025-05-30|expense|Wants|Video|200.00

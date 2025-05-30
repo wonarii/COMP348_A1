@@ -33,5 +33,6 @@ int compareAmounts(const void* a, const void* b);
 int compareDescription(const void* a, const void* b);
 void addEntry(entryArray* arrayOfEntries, int entryCounter);
 void modifyEntry(entryArray* arrayOfEntries);
+void filterByMonth(entryArray* arrayOfEntries);
 #endif
 

@@ -29,5 +29,7 @@ typedef struct{
     int size;
 }entryArray;
 
+entryArray* writeToFile(char filename[], entryArray* arrayOfEntries);
+void cleanUp(entryArray* arrayOfEntries);
 #endif
 

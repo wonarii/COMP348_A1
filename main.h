@@ -32,4 +32,7 @@ void expenseDistribution(entryArray* arrayOfEntries);
 void sortEntries(entryArray* arrayOfEntries);
 void addEntry(entryArray* arrayOfEntries, int entryCounter);
 void modifyEntry(entryArray* arrayOfEntries);
+void filterByMonth(entryArray* arrayOfEntries);
+entryArray* writeToFile(char filename[], entryArray* arrayOfEntries);
+void cleanUp(entryArray* arrayOfEntries);
 #endif

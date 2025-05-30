@@ -132,3 +132,55 @@ char* dataPointer = strdup(data);
 
 return dataPointer;
 }//end of collectData
+
+
+///----------------------------WRITING TO THE FILE------------------------------//
+
+entryArray* writeToFile(char filename[], entryArray* arrayOfEntries) {
+    FILE *fp = fopen(filename, "w");
+    if (fp == NULL) {
+        printf("Could not open %s \n", filename);
+        return NULL;
+    }
+
+    int size = arrayOfEntries->size;
+    entry** entries = arrayOfEntries->arrayPointer;
+
+    //I will use a for loop to write each entry
+    for(int i =0; i < size; i++){
+//creating the string for 1 entry
+char entryStr[606];
+snprintf(entryStr, sizeof(entryStr), "%d|%s|%s|%s|%s|%.2f\n",
+         entries[i]->id, entries[i]->date, entries[i]->type, entries[i]->subtype, entries[i]->description, entries[i]->amount);
+//printing the entry to the file
+fprintf(fp,"%s", entryStr);
+    }
+
+    fclose(fp);
+}
+
+//------------CLEAN UP---------------//
+
+void cleanUp(entryArray* arrayOfEntries) {
+    //if arrayOfEntries is null
+    if (!arrayOfEntries) return;
+
+    int size = arrayOfEntries->size;
+    entry **entries = arrayOfEntries->arrayPointer;
+
+    //frees all the entries, data by data
+    for (int i = 0; i < size; i++) {
+        if (entries[i]) {
+            free(entries[i]->date);
+            free(entries[i]->type);
+            free(entries[i]->subtype);
+            free(entries[i]->description);
+            free(entries[i]);
+        }
+    }
+    //then free the array of entries
+    free(entries);
+    //then free the struct with the array of entries in it
+    free(arrayOfEntries);
+}
+
