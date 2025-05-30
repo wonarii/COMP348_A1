@@ -3,12 +3,15 @@
 
 #include "main.h"
 
+
+
 //function declarations
 void clearScreen(void);
 void displayWelcome(void);
 void displayMainMenu(void);
 int acceptChoice(void);
 int verifyChoice(int choice);
+void goBack(void);
 
 
 //main function
@@ -21,12 +24,15 @@ int main(int argCount, char **argPointers){
 entryArray* arrayOfEntries = readFile(argPointers[1]);
 
 
+int choice = 0;
+
+do{
 //menu stuff--------------
 clearScreen();
 displayWelcome();
 displayMainMenu();
 
-int choice = acceptChoice();
+choice = acceptChoice();
 
 //clearScreen();
 
@@ -36,13 +42,15 @@ switch(choice)
 case 1:
 	clearScreen();
 	displayAll(arrayOfEntries);
+	goBack();
 	break;
 case 2:
 	clearScreen();
 	expenseDistribution(arrayOfEntries);
+	goBack();
 	break;
 case 3:
-//	sortEntries();
+	sortEntries(arrayOfEntries);
 	break;
 case 4:
 //	addEntry();
@@ -58,10 +66,10 @@ case 7:
 	break;
 }
 
+}while(choice!=7);
 //end of the program
 return(0);
-}
-
+}//end main
 //-----------------------------OTHER FUNCTIONS---------------------------------------
 
 //clears the screen of previous displays
@@ -108,4 +116,11 @@ acceptChoice();
 else{
 return choice;
 }
+}//end verify choice
+
+//-------Go back----------//
+void goBack(void){
+	printf("\nTo go back to main menu, enter any character: ");
+	char delay[100];
+    scanf("%99s", delay);
 }

@@ -83,9 +83,58 @@ void expenseDistribution(entryArray* arrayOfEntries){
     printf(" (%.2f%% of expenses, %.2f%% of income)\n", needsOfExpenses, needsOfIncome);
     printf("Wants: $%.2f", wants);
     printf(" (%.2f%% of expenses, %.2f%% of income)\n", wantsOfExpenses, wantsOfIncome);
-    printf("Net Balance: $%.2f", netBalance);
+    printf("Net Balance: $%.2f\n", netBalance);
 
     printf("=============================================\n");
 
 
 }//end expense distribution
+
+//----------CHOICE 3: SORT ENTRIES--------------//
+void sortEntries(entryArray* arrayOfEntries){
+
+     int size = arrayOfEntries->size;
+    entry** entries = arrayOfEntries->arrayPointer;
+
+    //making the function pointers
+    int(*compareIDPointer)(const void*, const void*);
+    compareIDPointer = &compareID;
+    int(*compareDatesPointer)(const void*, const void*);
+    compareDatesPointer = &compareDates;
+    int(*compareAmountsPointer)(const void*, const void*);
+    compareAmountsPointer = &compareAmounts;
+    int(*compareDescriptionPointer)(const void*, const void*);
+    compareDescriptionPointer = &compareDescription;
+
+clearScreen();
+printf("Sort Menu\n");
+printf("1. Sort by ID\n");
+printf("2. Sort by Date\n");
+printf("3. Sort by Amount\n");
+printf("4. Sort by Description\n");
+
+printf("Enter your choice: ");
+int choice;
+scanf("%d", &choice );
+
+
+
+switch(choice)
+{
+case 1://sort by id
+	qsort(entries,size, sizeof(entry*), compareIDPointer);
+	break;
+case 2:
+	qsort(entries,size, sizeof(entry*), compareDatesPointer);
+	break;
+case 3:
+	qsort(entries,size, sizeof(entry*), compareAmountsPointer);
+	break;
+case 4:
+qsort(entries,size, sizeof(entry*), compareDescriptionPointer);
+	break;
+default:
+    printf("invalid choice");
+    break;
+}
+}//end sort entries

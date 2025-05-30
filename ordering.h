@@ -1,5 +1,7 @@
-#ifndef __BUDGET_H
-#define __BUDGET_H
+//ordering.h
+
+#ifndef __ORDERING_H
+#define __ORDERING_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -15,20 +17,15 @@ char *description;
 float amount;
 }entry;
 
-
 typedef struct{
     entry **arrayPointer;
     int size;
 }entryArray;
 
-void clearScreen(void);
-void displayAll(entryArray* arrayOfEntries);
-void expenseDistribution(entryArray* arrayOfEntries);
-void sortEntries(entryArray* arrayOfEntries);
+int acceptChoice(void);
 int compareID(const void* a, const void* b);
 int compareDates(const void* a, const void* b);
 int compareAmounts(const void* a, const void* b);
 int compareDescription(const void* a, const void* b);
 
 #endif
-
